@@ -36,12 +36,6 @@ const ContentIndex: FC<ContentIndexProps> = async ({ slice }) => {
           <PrismicRichText field={slice.primary.description} />
         </div>
       )}
-      <ContentList
-        items={items}
-        contentType={contextType}
-        viewMoreText={slice.primary.view_more_text}
-        fallbackItemImage={slice.primary.fall_back_item_image}
-      />
     </Bounded>
   );
 };
