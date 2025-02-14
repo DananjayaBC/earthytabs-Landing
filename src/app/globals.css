@@ -10,3 +10,11 @@
     hsla(222, 0%, 0%, 0) 100%
   );
 }
+/* Add this to your global CSS or a CSS module */
+.btn1 {
+  visibility: hidden; /* Hide the button initially */
+  opacity: 0; /* Hide the button initially */
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease; /* Smooth transition */
+}

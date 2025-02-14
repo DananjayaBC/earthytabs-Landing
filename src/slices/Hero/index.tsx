@@ -22,6 +22,7 @@ const Hero: FC<HeroProps> = ({ slice }) => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline();
 
+      // Animation for the name
       tl.fromTo(
         ".name-animation",
         {
@@ -43,18 +44,29 @@ const Hero: FC<HeroProps> = ({ slice }) => {
           },
         }
       );
+
+      // Animation for the job title
       tl.fromTo(
         ".job-title",
         { y: 20, opacity: 0, scale: 1.2 },
         { opacity: 1, y: 0, scale: 1, duration: 1, ease: "elastic.out(1, 0.3)" }
       );
+
+      // Animation for the button
       tl.fromTo(
         ".btn1",
-        { y: 20, opacity: 0, scale: 1.2 },
-        { opacity: 1, y: 0, scale: 1, duration: 1, ease: "elastic.out(1, 0.3)" }
+        { y: 20, autoAlpha: 0, scale: 1.2 }, // Use autoAlpha to handle visibility and opacity
+        {
+          autoAlpha: 1,
+          y: 0,
+          scale: 1,
+          duration: 1,
+          ease: "elastic.out(1, 0.3)",
+        }
       );
     }, component);
-    return () => ctx.revert();
+
+    return () => ctx.revert(); // Cleanup GSAP context
   }, []);
 
   /**
@@ -92,12 +104,12 @@ const Hero: FC<HeroProps> = ({ slice }) => {
     >
       <div className="grid min-h-[70vh] grid-cols-1 items-center md:grid-cols-2">
         <Shapes />
-        <div className="col-start-1 md:row-start-1 " data-speed=".2">
+        <div className="col-start-1 md:row-start-1" data-speed=".2">
           <h1
             className="mb-8 text-[clamp(3rem,15vmin,20rem)] font-extrabold leading-none tracking-tighter"
             aria-label={`${slice.primary.hero_1st ?? ""} ${slice.primary.hero_2nd ?? ""}`}
           >
-            <span className="block text-slate-300 ">
+            <span className="block text-slate-300">
               {renderLetters(
                 addSpaceBetweenWords(slice.primary.hero_1st as string),
                 "1st"
@@ -119,7 +131,7 @@ const Hero: FC<HeroProps> = ({ slice }) => {
             <Button
               linkField={slice.primary.cta_link}
               label={slice.primary.cta_lable}
-              className=" ml-3 "
+              className="ml-3"
             />
           </span>
         </div>
