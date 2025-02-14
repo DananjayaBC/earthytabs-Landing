@@ -5,7 +5,6 @@ import Bounded from "@/components/Bounded";
 import Heading from "@/components/Heading";
 import Button from "@/components/Button";
 import { PrismicNextImage } from "@prismicio/next";
-import Avatar from "./Avatar";
 
 /**
  * Props for `Biography`.
@@ -32,10 +31,10 @@ const Biography: FC<BiographyProps> = ({ slice }) => {
           linkField={slice.primary.button_link}
           label={slice.primary.button_text}
         />
-        <Avatar
+        {/* <Avatar
           image={slice.primary.avatar}
           className="row-start-1 max-w-sm md:col-start-2 md:row-end-3"
-        />
+        /> */}
       </div>
     </Bounded>
   );
