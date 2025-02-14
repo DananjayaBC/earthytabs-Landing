@@ -1,0 +1,38 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"hero_1st": {
+				"__TYPE__": "FieldContent",
+				"value": "story",
+				"type": "Text"
+			},
+			"hero_2nd": {
+				"__TYPE__": "FieldContent",
+				"value": "cry",
+				"type": "Text"
+			},
+			"tag_line": {
+				"__TYPE__": "FieldContent",
+				"value": "repeat",
+				"type": "Text"
+			},
+			"cta_link": {
+				"key": "f0f1f6d4-c758-4572-875b-e77604f3d963",
+				"__TYPE__": "LinkContent",
+				"value": {
+					"__TYPE__": "ExternalLink",
+					"url": "http://twitter.com",
+					"text": "class"
+				}
+			},
+			"cta_lable": {
+				"__TYPE__": "FieldContent",
+				"value": "exclaimed",
+				"type": "Text"
+			}
+		},
+		"items": []
+	}
+]
