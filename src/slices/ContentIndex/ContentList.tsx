@@ -3,16 +3,16 @@ import React from "react";
 
 type ContentListProps = {
   items: Content.BlogPostDocument[] | Content.ProductDocument[];
-  contentType: Content.ContentIndexSlice["primary"]["content_type"];
+  // contentType: Content.ContentIndexSlice["primary"]["content_type"];
   viewMoreText?: Content.ContentIndexSlice["primary"]["view_more_text"];
-  fallbackItemImage: Content.ContentIndexSlice["primary"]["fall_back_item_image"];
+  // fallbackItemImage: Content.ContentIndexSlice["primary"]["fall_back_item_image"];
 };
 
 export default function ContentList({
   items,
-  contentType,
+  // contentType,
   viewMoreText = "Read More",
-  fallbackItemImage,
+  // fallbackItemImage,
 }: ContentListProps) {
   return (
     <div>
