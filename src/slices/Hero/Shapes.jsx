@@ -13,12 +13,11 @@ export default function Shapes() {
       <Canvas
         className="z-0"
         shadows
-        gl={{ antialias: true }} // Enable anti-aliasing
-        dpr={[1, 1.5]} // Device pixel ratio for sharper rendering
+        gl={{ antialias: true }}
+        dpr={[1, 1.5]}
         camera={{ position: [0, 0, 25], fov: 30, near: 1, far: 40 }}
       >
         <Suspense fallback={null}>
-          {/* Background Particles */}
           <BackgroundParticles />
           <Geometries />
           <ContactShadows
@@ -37,24 +36,18 @@ export default function Shapes() {
 
 function BackgroundParticles() {
   const particlesRef = useRef();
+  const particleCount = 5000;
+  const positions = new Float32Array(particleCount * 3);
+  const colors = new Float32Array(particleCount * 3);
 
-  // Number of particles
-  const particleCount = 5000; // Increase the number of particles
-
-  // Create particle geometry
-  const positions = new Float32Array(particleCount * 3); // XYZ coordinates for each particle
-  const colors = new Float32Array(particleCount * 3); // RGB colors for each particle
-
-  // Randomize particle positions and colors
   for (let i = 0; i < particleCount; i++) {
-    positions[i * 3] = (Math.random() - 0.5) * 200; // X
-    positions[i * 3 + 1] = (Math.random() - 0.5) * 200; // Y
-    positions[i * 3 + 2] = (Math.random() - 0.5) * 200; // Z
+    positions[i * 3] = (Math.random() - 0.5) * 200;
+    positions[i * 3 + 1] = (Math.random() - 0.5) * 200;
+    positions[i * 3 + 2] = (Math.random() - 0.5) * 200;
 
-    // Assign random colors
-    colors[i * 3] = Math.random(); // R
-    colors[i * 3 + 1] = Math.random(); // G
-    colors[i * 3 + 2] = Math.random(); // B
+    colors[i * 3] = Math.random();
+    colors[i * 3 + 1] = Math.random();
+    colors[i * 3 + 2] = Math.random();
   }
 
   const particleGeometry = new THREE.BufferGeometry();
@@ -64,25 +57,22 @@ function BackgroundParticles() {
   );
   particleGeometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
 
-  // Create particle material
   const particleMaterial = new THREE.PointsMaterial({
-    size: 0.2, // Particle size
-    vertexColors: true, // Enable vertex colors
+    size: 0.2,
+    vertexColors: true,
     transparent: true,
     opacity: 0.8,
   });
 
-  // Animate particles
   useEffect(() => {
     const animateParticles = () => {
       if (particlesRef.current) {
         const positions =
           particlesRef.current.geometry.attributes.position.array;
 
-        // Move particles in a circular motion
         for (let i = 0; i < particleCount; i++) {
-          positions[i * 3] += Math.sin(Date.now() * 0.001 + i) * 0.01; // X
-          positions[i * 3 + 1] += Math.cos(Date.now() * 0.001 + i) * 0.01; // Y
+          positions[i * 3] += Math.sin(Date.now() * 0.001 + i) * 0.01;
+          positions[i * 3 + 1] += Math.cos(Date.now() * 0.001 + i) * 0.01;
         }
 
         particlesRef.current.geometry.attributes.position.needsUpdate = true;
@@ -108,27 +98,27 @@ function Geometries() {
     {
       position: [0, 0, 0],
       r: 0.5,
-      type: "model2", // New Blender model
+      type: "model2",
     },
     {
       position: [1, -0.75, 4],
       r: 0.4,
-      type: "model", // Blender model
+      type: "model",
     },
     {
       position: [-1.4, 2, -4],
       r: 0.6,
-      type: "model", // Blender model (replaces DodecahedronGeometry)
+      type: "model",
     },
     {
       position: [-0.8, -0.75, 5],
       r: 0.5,
-      type: "model2", // New Blender model
+      type: "model2",
     },
     {
       position: [1.6, 1.6, -4],
       r: 0.7,
-      type: "model", // Blender model (replaces OctahedronGeometry)
+      type: "model",
     },
   ];
 
@@ -138,50 +128,58 @@ function Geometries() {
     new Audio("/sounds/knock3.ogg"),
   ];
 
+  // Track the number of BlenderModel components rendered
+  let blenderModelCount = 0;
+
   return (
     <>
-      {geometries.map(({ position, r, type }, index) =>
-        type === "model" ? (
-          <BlenderModel
-            key={`blender-model-${index}`} // Unique key
-            position={position.map((p) => p * 2)}
-            r={r}
-            soundEffects={soundEffects}
-          />
-        ) : type === "model2" ? (
-          <BlenderModel2
-            key={`blender-model2-${index}`} // Unique key
-            position={position.map((p) => p * 2)}
-            r={r}
-            soundEffects={soundEffects}
-          />
-        ) : (
-          <Geometry
-            key={JSON.stringify(position)}
-            position={position.map((p) => p * 2)}
-            geometry={geometry}
-            soundEffects={soundEffects}
-            r={r}
-          />
-        )
-      )}
+      {geometries.map(({ position, r, type }, index) => {
+        if (type === "model") {
+          // Assign initialColorIndex based on BlenderModel count (0, 1, 2)
+          const initialColorIndex = blenderModelCount % 3;
+          blenderModelCount++;
+
+          return (
+            <BlenderModel
+              key={`blender-model-${index}`}
+              position={position.map((p) => p * 2)}
+              r={r}
+              soundEffects={soundEffects}
+              initialColorIndex={initialColorIndex} // Assign unique color index
+            />
+          );
+        } else if (type === "model2") {
+          return (
+            <BlenderModel2
+              key={`blender-model2-${index}`}
+              position={position.map((p) => p * 2)}
+              r={r}
+              soundEffects={soundEffects}
+              initialColorIndex={index % 2} // Assign unique color index for model2
+            />
+          );
+        } else {
+          return null;
+        }
+      })}
     </>
   );
 }
-
-function BlenderModel({ position, r, soundEffects }) {
+function BlenderModel({ position, r, soundEffects, initialColorIndex }) {
   const meshRef = useRef();
   const [visible, setVisible] = useState(false);
   const { nodes } = useGLTF("/Phile.glb");
 
-  // Define only light blue, light yellow, and gold materials
+  // Define 3 distinct materials
   const materials = [
-    new THREE.MeshStandardMaterial({ color: 0xadd8e6 }), // Light Blue
-    new THREE.MeshStandardMaterial({ color: 0xffffe0 }), // Light Yellow
-    new THREE.MeshStandardMaterial({ color: 0xffd700 }), // Gold
+    new THREE.MeshStandardMaterial({ color: 0x38bdf8 }), // Light Blue
+    new THREE.MeshStandardMaterial({ color: 0xfacc15 }), // Brown
+    new THREE.MeshStandardMaterial({ color: 0xca8a04 }), // Gold
   ];
 
-  const [currentMaterialIndex, setCurrentMaterialIndex] = useState(0);
+  // Use the initialColorIndex to set the starting color
+  const [currentMaterialIndex, setCurrentMaterialIndex] =
+    useState(initialColorIndex);
 
   function handleClick(e) {
     const mesh = e.object;
@@ -197,7 +195,7 @@ function BlenderModel({ position, r, soundEffects }) {
       yoyo: true,
     });
 
-    // Cycle through light blue, light yellow, and gold
+    // Cycle through the 3 colors
     setCurrentMaterialIndex((prevIndex) => (prevIndex + 1) % materials.length);
     mesh.material = materials[currentMaterialIndex];
   }
@@ -244,18 +242,20 @@ function BlenderModel({ position, r, soundEffects }) {
   );
 }
 
-function BlenderModel2({ position, r, soundEffects }) {
+function BlenderModel2({ position, r, soundEffects, initialColorIndex }) {
   const meshRef = useRef();
   const [visible, setVisible] = useState(false);
   const { nodes } = useGLTF("/Phile2.glb");
 
-  // Define only white and red materials
+  // Define 2 distinct materials
   const materials = [
     new THREE.MeshStandardMaterial({ color: 0xffffff }), // White
     new THREE.MeshStandardMaterial({ color: 0xff0000 }), // Red
   ];
 
-  const [currentMaterialIndex, setCurrentMaterialIndex] = useState(0);
+  // Use the initialColorIndex to set the starting color
+  const [currentMaterialIndex, setCurrentMaterialIndex] =
+    useState(initialColorIndex);
 
   function handleClick(e) {
     const mesh = e.object;
@@ -271,9 +271,9 @@ function BlenderModel2({ position, r, soundEffects }) {
       yoyo: true,
     });
 
-    // Toggle between white and red
+    // Toggle between the 2 colors
     setCurrentMaterialIndex((prevIndex) => (prevIndex === 0 ? 1 : 0));
-    mesh.material = materials[currentMaterialIndex === 0 ? 1 : 0];
+    mesh.material = materials[currentMaterialIndex];
   }
 
   const handlePointerOver = () => {
@@ -312,78 +312,6 @@ function BlenderModel2({ position, r, soundEffects }) {
           geometry={nodes.Cylinder005.geometry}
           material={materials[currentMaterialIndex]} // Use the current material
           scale={[0.832, 0.302, 0.832]}
-        ></mesh>
-      </Float>
-    </group>
-  );
-}
-
-function Geometry({ r, position, geometry, soundEffects }) {
-  const meshRef = useRef();
-  const [visible, setVisible] = useState(false);
-
-  const materials = [
-    new THREE.MeshStandardMaterial({ color: 0xadd8e6 }), // Light Blue
-    new THREE.MeshStandardMaterial({ color: 0xffffe0 }), // Light Yellow
-    new THREE.MeshStandardMaterial({ color: 0xffd700 }), // Gold
-  ];
-
-  const [currentMaterialIndex, setCurrentMaterialIndex] = useState(0);
-
-  function handleClick(e) {
-    const mesh = e.object;
-
-    gsap.utils.random(soundEffects).play();
-
-    gsap.to(mesh.rotation, {
-      x: `+=${gsap.utils.random(0, 2)}`,
-      y: `+=${gsap.utils.random(0, 2)}`,
-      z: `+=${gsap.utils.random(0, 2)}`,
-      duration: 1.3,
-      ease: "elastic.out(1,0.3)",
-      yoyo: true,
-    });
-
-    // Cycle through light blue, light yellow, and gold
-    setCurrentMaterialIndex((prevIndex) => (prevIndex + 1) % materials.length);
-    mesh.material = materials[currentMaterialIndex];
-  }
-
-  const handlePointerOver = () => {
-    document.body.style.cursor = "pointer";
-  };
-
-  const handlePointerOut = () => {
-    document.body.style.cursor = "default";
-  };
-
-  useEffect(() => {
-    let ctx = gsap.context(() => {
-      setVisible(true);
-      gsap.from(meshRef.current.scale, {
-        x: 0,
-        y: 0,
-        z: 0,
-        duration: gsap.utils.random(0.8, 1.2),
-        ease: "elastic.out(1,0.3)",
-        delay: gsap.utils.random(0, 0.5),
-      });
-    });
-    return () => ctx.revert();
-  }, []);
-
-  return (
-    <group position={position} ref={meshRef}>
-      <Float speed={5 * r} rotationIntensity={6 * r} floatIntensity={5 * r}>
-        <mesh
-          onClick={handleClick}
-          onPointerOver={handlePointerOver}
-          onPointerOut={handlePointerOut}
-          visible={visible}
-          castShadow
-          receiveShadow
-          geometry={geometry}
-          material={materials[currentMaterialIndex]} // Use the current material
         ></mesh>
       </Float>
     </group>
