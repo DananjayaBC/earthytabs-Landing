@@ -106,7 +106,7 @@ const Hero: FC<HeroProps> = ({ slice }) => {
         <Shapes />
         <div className="col-start-1 md:row-start-1" data-speed=".2">
           <h1
-            className="mb-8 text-[clamp(3rem,15vmin,20rem)] font-extrabold leading-none tracking-tighter"
+            className="mb-8 text-[clamp(32px,16vmin,330px)] sm:text-[clamp(50px,11vmin,330px)] font-extrabold leading-none tracking-tighter"
             aria-label={`${slice.primary.hero_1st ?? ""} ${slice.primary.hero_2nd ?? ""}`}
           >
             <span className="block text-slate-300">
