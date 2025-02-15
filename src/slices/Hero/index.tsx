@@ -101,9 +101,10 @@ const Hero: FC<HeroProps> = ({ slice }) => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
       ref={component}
+      className="overflow-hidden"
     >
       <div className="grid min-h-[70vh] grid-cols-1 items-center md:grid-cols-2">
-        <Shapes />
+        <Shapes /> {/* Prevent overflow */}
         <div className="col-start-1 md:row-start-1" data-speed=".2">
           <h1
             className="mb-8 text-[clamp(3rem,15vmin,20rem)] font-extrabold leading-none tracking-tighter"
@@ -127,7 +128,9 @@ const Hero: FC<HeroProps> = ({ slice }) => {
             {slice.primary.tag_line}
           </span>
           <br />
-          <span className="btn1 block">
+          <span className="btn1 block w-fit max-w-full">
+            {" "}
+            {/* Prevent overflow */}
             <Button
               linkField={slice.primary.cta_link}
               label={slice.primary.cta_lable}
