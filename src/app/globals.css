@@ -18,22 +18,3 @@
     opacity 0.3s ease,
     visibility 0.3s ease; /* Smooth transition */
 }
-/* Ensure the Bounded container does not overflow */
-.Bounded {
-  width: 100%;
-  max-width: 100%;
-  padding: 0 16px; /* Add padding for smaller screens */
-}
-
-/* Ensure the Shapes component does not overflow */
-.Shapes {
-  width: 100%;
-  max-width: 100%;
-  overflow: hidden; /* Hide any overflow */
-}
-
-/* Ensure the button does not overflow */
-.btn1 {
-  width: fit-content; /* Adjust width to fit content */
-  max-width: 100%; /* Ensure the button does not exceed the container */
-}
