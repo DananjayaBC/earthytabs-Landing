@@ -99,26 +99,31 @@ function Geometries() {
       position: [0, 0, 0],
       r: 0.5,
       type: "model2",
+      scale: [1.5, 0.4, 1.5], // Default scale for model2
     },
     {
       position: [1, -0.75, 4],
       r: 0.4,
       type: "model",
+      scale: [1.0, 1.0, 1.0], // Larger scale for this model
     },
     {
       position: [-1.4, 2, -4],
       r: 0.6,
       type: "model",
+      scale: [1.5, 1.5, 1.5], // Smaller scale for this model
     },
     {
       position: [-0.8, -0.75, 5],
       r: 0.5,
       type: "model2",
+      scale: [1.2, 0.4, 1.2], // Slightly larger scale for this model2
     },
     {
       position: [1.6, 1.6, -4],
       r: 0.7,
       type: "model",
+      scale: [1.5, 1.5, 1.5], // Much larger scale for this model
     },
   ];
 
@@ -133,7 +138,7 @@ function Geometries() {
 
   return (
     <>
-      {geometries.map(({ position, r, type }, index) => {
+      {geometries.map(({ position, r, type, scale }, index) => {
         if (type === "model") {
           // Assign initialColorIndex based on BlenderModel count (0, 1, 2)
           const initialColorIndex = blenderModelCount % 3;
@@ -146,6 +151,7 @@ function Geometries() {
               r={r}
               soundEffects={soundEffects}
               initialColorIndex={initialColorIndex} // Assign unique color index
+              scale={scale} // Pass the scale prop
             />
           );
         } else if (type === "model2") {
@@ -156,6 +162,7 @@ function Geometries() {
               r={r}
               soundEffects={soundEffects}
               initialColorIndex={index % 2} // Assign unique color index for model2
+              scale={scale} // Pass the scale prop
             />
           );
         } else {
@@ -165,7 +172,8 @@ function Geometries() {
     </>
   );
 }
-function BlenderModel({ position, r, soundEffects, initialColorIndex }) {
+
+function BlenderModel({ position, r, soundEffects, initialColorIndex, scale }) {
   const meshRef = useRef();
   const [visible, setVisible] = useState(false);
   const { nodes } = useGLTF("/Phile.glb");
@@ -236,13 +244,20 @@ function BlenderModel({ position, r, soundEffects, initialColorIndex }) {
           geometry={nodes.Circle011.geometry}
           material={materials[currentMaterialIndex]} // Use the current material
           rotation={[Math.PI / 2, 0, 0]}
+          scale={scale} // Apply the scale prop
         ></mesh>
       </Float>
     </group>
   );
 }
 
-function BlenderModel2({ position, r, soundEffects, initialColorIndex }) {
+function BlenderModel2({
+  position,
+  r,
+  soundEffects,
+  initialColorIndex,
+  scale,
+}) {
   const meshRef = useRef();
   const [visible, setVisible] = useState(false);
   const { nodes } = useGLTF("/Phile2.glb");
@@ -311,7 +326,7 @@ function BlenderModel2({ position, r, soundEffects, initialColorIndex }) {
           receiveShadow
           geometry={nodes.Cylinder005.geometry}
           material={materials[currentMaterialIndex]} // Use the current material
-          scale={[0.832, 0.302, 0.832]}
+          scale={scale} // Apply the scale prop
         ></mesh>
       </Float>
     </group>
