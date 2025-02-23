@@ -1,5 +1,5 @@
 "use client";
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { Content, KeyTextField } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 import { gsap } from "gsap";
@@ -17,10 +17,16 @@ export type HeroProps = SliceComponentProps<Content.HeroSlice>;
  */
 const Hero: FC<HeroProps> = ({ slice }) => {
   const component = useRef(null);
+  const [isLoading, setIsLoading] = useState(true); // Add loading state
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline();
+
+      // Simulate loading completion after 2 seconds
+      setTimeout(() => {
+        setIsLoading(false); // Hide loader after 2 seconds
+      }, 2000);
 
       // Animation for the name
       tl.fromTo(
@@ -102,7 +108,46 @@ const Hero: FC<HeroProps> = ({ slice }) => {
       data-slice-variation={slice.variation}
       ref={component}
     >
-      <div className="grid min-h-[70vh] grid-cols-1 items-center md:grid-cols-2 pl-4 md:pl-0">
+      {/* Loading Screen */}
+      {isLoading && (
+        <div className="fixed inset-0 flex items-center justify-center bg-slate-900 z-50">
+          <div className="content">
+            <div className="pill">
+              <div className="medicine">
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+              </div>
+              <div className="side"></div>
+              <div className="side"></div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Main Content */}
+      <div
+        className={`grid min-h-[70vh] grid-cols-1 items-center md:grid-cols-2 pl-4 md:pl-0 ${
+          isLoading ? "opacity-0" : "opacity-100"
+        } transition-opacity duration-500`}
+      >
         <Shapes />
         <div className="col-start-1 md:row-start-1" data-speed=".2">
           <h1
