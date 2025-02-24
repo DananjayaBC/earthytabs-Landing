@@ -30,10 +30,13 @@ const Biography: FC<BiographyProps> = ({ slice }) => {
           linkField={slice.primary.button_link}
           label={slice.primary.button_text}
         />
-        {/* <Avatar
-          image={slice.primary.avatar}
+        <img
+          src="/logo.png"
+          alt="img"
+          width={500} // Set the width of the image
+          height={300} // Set the height of the image
           className="row-start-1 max-w-sm md:col-start-2 md:row-end-3"
-        /> */}
+        />
       </div>
     </Bounded>
   );
