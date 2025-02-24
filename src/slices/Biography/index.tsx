@@ -4,6 +4,7 @@ import { PrismicRichText, SliceComponentProps } from "@prismicio/react";
 import Bounded from "@/components/Bounded";
 import Heading from "@/components/Heading";
 import Button from "@/components/Button";
+import Avatar from "@/components/Avatar";
 
 /**
  * Props for `Biography`.
@@ -30,11 +31,8 @@ const Biography: FC<BiographyProps> = ({ slice }) => {
           linkField={slice.primary.button_link}
           label={slice.primary.button_text}
         />
-        <img
-          src="/logo.png"
-          alt="img"
-          width={500} // Set the width of the image
-          height={300} // Set the height of the image
+        <Avatar
+          image={slice.primary.avatar}
           className="row-start-1 max-w-sm md:col-start-2 md:row-end-3"
         />
       </div>
