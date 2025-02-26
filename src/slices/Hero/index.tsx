@@ -150,35 +150,37 @@ const Hero: FC<HeroProps> = ({ slice }) => {
       >
         <Shapes />
         <div className="col-start-1 md:row-start-1" data-speed=".2">
-          <h1
-            className="mb-8 text-[clamp(32px,16vmin,330px)] sm:text-[clamp(50px,11vmin,330px)] font-extrabold leading-none tracking-tighter"
-            aria-label={`${slice.primary.hero_1st ?? ""} ${slice.primary.hero_2nd ?? ""}`}
-          >
-            <span className="block text-slate-300">
-              {renderLetters(
-                addSpaceBetweenWords(slice.primary.hero_1st as string),
-                "1st"
-              )}
-            </span>
-            <span className="-mt-[.2em] block text-slate-500">
-              {renderLetters(
-                addSpaceBetweenWords(slice.primary.hero_2nd as string),
-                "2nd"
-              )}
-            </span>
-          </h1>
+          <section className="px-4 py-10 md:px-6 md:py-14 lg:py-16">
+            <h1
+              className="mb-8 text-[clamp(32px,16vmin,330px)] sm:text-[clamp(50px,11vmin,330px)] font-extrabold leading-none tracking-tighter"
+              aria-label={`${slice.primary.hero_1st ?? ""} ${slice.primary.hero_2nd ?? ""}`}
+            >
+              <span className="block text-slate-300">
+                {renderLetters(
+                  addSpaceBetweenWords(slice.primary.hero_1st as string),
+                  "1st"
+                )}
+              </span>
+              <span className="-mt-[.2em] block text-slate-500">
+                {renderLetters(
+                  addSpaceBetweenWords(slice.primary.hero_2nd as string),
+                  "2nd"
+                )}
+              </span>
+            </h1>
 
-          <span className="job-title block bg-gradient-to-tr from-yellow-500 via-yellow-200 to-yellow-500 bg-clip-text text-2xl font-bold uppercase tracking-[.1em] text-transparent opacity-0 md:text-4xl">
-            {slice.primary.tag_line}
-          </span>
-          <br />
-          <span className="btn1 block">
-            <Button
-              linkField={slice.primary.cta_link}
-              label={slice.primary.cta_lable}
-              className="ml-3"
-            />
-          </span>
+            <span className="job-title block bg-gradient-to-tr from-yellow-500 via-yellow-200 to-yellow-500 bg-clip-text text-2xl font-bold uppercase tracking-[.1em] text-transparent opacity-0 md:text-4xl">
+              {slice.primary.tag_line}
+            </span>
+            <br />
+            <span className="btn1 block">
+              <Button
+                linkField={slice.primary.cta_link}
+                label={slice.primary.cta_lable}
+                className="ml-3"
+              />
+            </span>
+          </section>
         </div>
       </div>
     </Bounded>

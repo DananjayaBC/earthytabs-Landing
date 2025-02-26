@@ -28,20 +28,22 @@ const ContentIndex: FC<ContentIndexProps> = async ({ slice }) => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      <Heading size="xl" className="mb-8">
-        {slice.primary.heading}
-      </Heading>
-      {isFilled.richText(slice.primary.description) && (
-        <div className="prose prose-xl prose-invert mb-10">
-          <PrismicRichText field={slice.primary.description} />
-        </div>
-      )}
-      <ContentList
-        items={items}
-        contentType={contentType}
-        viewMoreText={slice.primary.view_more_text}
-        fallbackItemImage={slice.primary.fall_back_item_image}
-      />
+      <section className="px-4 py-10 md:px-6 md:py-14 lg:py-16">
+        <Heading size="xl" className="mb-8">
+          {slice.primary.heading}
+        </Heading>
+        {isFilled.richText(slice.primary.description) && (
+          <div className="prose prose-xl prose-invert mb-10">
+            <PrismicRichText field={slice.primary.description} />
+          </div>
+        )}
+        <ContentList
+          items={items}
+          contentType={contentType}
+          viewMoreText={slice.primary.view_more_text}
+          fallbackItemImage={slice.primary.fall_back_item_image}
+        />
+      </section>
     </Bounded>
   );
 };
