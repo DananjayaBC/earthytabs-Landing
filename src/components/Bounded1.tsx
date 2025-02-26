@@ -7,8 +7,8 @@ type BoundedProps = {
   children: React.ReactNode;
 };
 
-const Bounded = React.forwardRef<HTMLDivElement, BoundedProps>(
-  ({ as: Comp = "selection", className, children, ...restProps }, ref) => {
+const Bounded1 = React.forwardRef<HTMLDivElement, BoundedProps>(
+  ({ as: Comp = "section", className, children, ...restProps }, ref) => {
     return (
       <Comp
         ref={ref}
@@ -21,6 +21,7 @@ const Bounded = React.forwardRef<HTMLDivElement, BoundedProps>(
   }
 );
 
-Bounded.displayName = "Bounded";
+// Set a display name for the component
+Bounded1.displayName = "Bounded1";
 
-export default Bounded;
+export default Bounded1;
