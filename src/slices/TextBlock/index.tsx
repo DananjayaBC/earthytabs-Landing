@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { Content } from "@prismicio/client";
 import { PrismicRichText, SliceComponentProps } from "@prismicio/react";
-import { div } from "three/tsl";
 
 /**
  * Props for `TextBlock`.
