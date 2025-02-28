@@ -8,6 +8,7 @@ import Link from "next/link";
 import { MdMenu, MdClose } from "react-icons/md";
 import Button from "./Button";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 export default function NavBar({
   settings,
@@ -22,7 +23,13 @@ export default function NavBar({
       <ul className="flex flex-col justify-between rounded-b-lg bg-slate-50 px-4 py-2 md:m-4 md:flex-row md:items-center md:rounded-xl">
         <div className="flex items-center justify-between">
           <Link href="/" aria-label="Home page">
-            <img src="/logo.svg" alt="Logo" className="w-30 h-7" />
+            <Image
+              src="/logo.svg"
+              alt="Logo"
+              width={120} // Specify a width (adjust based on your w-30 className)
+              height={28} // Specify a height (adjust based on your h-7 className)
+              className="w-30 h-7"
+            />
           </Link>
           <button
             aria-label="Open menu"

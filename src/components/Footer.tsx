@@ -6,6 +6,7 @@ import Link from "next/link";
 import Bounded from "@/components/Bounded";
 import { isFilled } from "@prismicio/client";
 import { FaInstagram, FaX, FaLinkedin } from "react-icons/fa6";
+import Image from "next/image";
 
 export default async function Footer() {
   const client = createClient();
@@ -18,7 +19,13 @@ export default async function Footer() {
             href="/"
             className="text-xl font-extrabold tracking-tighter text-slate-100 transition-colors duration-150 hover:text-yellow-400"
           >
-            <img src="/logoWhite.svg" alt="Logo" className="w-30 h-7" />
+            <Image
+              src="/logoWhite.svg"
+              alt="Logo"
+              width={120} // Specify a width (adjust based on your w-30 className)
+              height={28} // Specify a height (adjust based on your h-7 className)
+              className="w-30 h-7"
+            />
           </Link>
           <span
             className="hidden text-5xl font-extralight leading-[0] text-slate-400 sm:inline"
