@@ -102,18 +102,6 @@ export default function NavBar({
   );
 }
 
-function NameLogo({ name }: { name: KeyTextField }) {
-  return (
-    <Link
-      href="/"
-      aria-label="Home page"
-      className="text-xl font-extrabold tracking-tighter text-slate-900"
-    >
-      {name}
-    </Link>
-  );
-}
-
 function DesktopMenu({
   settings,
   pathname,
