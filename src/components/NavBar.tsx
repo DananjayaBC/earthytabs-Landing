@@ -21,7 +21,9 @@ export default function NavBar({
     <nav aria-label="Main navigation">
       <ul className="flex flex-col justify-between rounded-b-lg bg-slate-50 px-4 py-2 md:m-4 md:flex-row md:items-center md:rounded-xl">
         <div className="flex items-center justify-between">
-          <NameLogo name={settings.data.name} />
+          <Link href="/" aria-label="Home page">
+            <img src="/logo.svg" alt="Logo" className="w-30 h-7" />
+          </Link>
           <button
             aria-label="Open menu"
             className="block p-2 text-2xl text-slate-800 md:hidden"

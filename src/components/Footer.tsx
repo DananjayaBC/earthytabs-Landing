@@ -18,7 +18,7 @@ export default async function Footer() {
             href="/"
             className="text-xl font-extrabold tracking-tighter text-slate-100 transition-colors duration-150 hover:text-yellow-400"
           >
-            {settings.data.name}
+            <img src="/logoWhite.svg" alt="Logo" className="w-30 h-7" />
           </Link>
           <span
             className="hidden text-5xl font-extralight leading-[0] text-slate-400 sm:inline"
