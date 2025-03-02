@@ -128,9 +128,9 @@ function Geometries() {
   ];
 
   const soundEffects = [
-    new Audio("/sounds/knock1.ogg"),
-    new Audio("/sounds/knock2.ogg"),
-    new Audio("/sounds/knock3.ogg"),
+    new Audio("/sounds/knock4.ogg"),
+    new Audio("/sounds/knock5.ogg"),
+    new Audio("/sounds/knock6.ogg"),
   ];
 
   // Track the number of BlenderModel components rendered
